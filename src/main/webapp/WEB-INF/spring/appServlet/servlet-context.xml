@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+  	<!-- InternalResourceViewResolver -->
+  	<bean id ="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" 	value="2"/>
+	</bean>
+	
+	
+	<!-- beanNameViewResolver -->
+	<bean id = "beanNameViewResolver" class ="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value = "1"></property>
+	</bean>
+	
+	 <!-- JstView Bean이 BeanNameResolver에서 결과페이지 매핑하는 기능을 한다. --> 
+	 <!-- board.jsp로 이동 -->
+	 <bean name="board_result" class="org.springframework.web.servlet.view.JstlView"> 
+	 	<property name="url" value="board/result/find_Board.jsp"/>
+	 </bean> 
+	 <!-- product.jsp로 이동 -->
+	 <bean name="product_result" class="org.springframework.web.servlet.view.JstlView"> 
+	 	<property name="url" value="product/result/find_product.jsp"/> 
+	 </bean> 
+	 <!-- register_result.jsp로 이동 -->
+	 <bean name="register_result" class="org.springframework.web.servlet.view.JstlView"> 
+		 <property name="url" value="response/register_result.jsp"/> 
+	 </bean>
+	 
+	 
+	 <!-- Tiles viewResolver -->
+	 <bean id = "tilesViewResolver" class = "org.springframework.web.servlet.view.UrlBasedViewResolver">
+	 	<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+	 	<property name="order"  value = "0"></property>
+	 </bean>
+	 
+	 <!-- tilesViewResolver가 참조하는 bean tilesConfigurer객체 -->
+	 <bean id = "tilesConfigurer" class = "org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+	 	<property name="definitions">
+	 		<list>
+	 			<value>/WEB-INF/tiles.xml</value>
+	 		</list>
+	 	</property>
+	 </bean>
+	 
+	<context:component-scan base-package="controller"/>
+
+</beans> 
+
+
